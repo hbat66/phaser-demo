@@ -1,6 +1,10 @@
 // JavaScript Document
 
 // Create a new scene named "Game"
+
+
+// The let part is a JS statement. It declares a block scope local variable, optionally initializing it to a value. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+//A block levelvariable only exists within the context of the block. When the statement is finished executing, the variable is destroyed: https://www.nczonline.net/blog/2008/12/04/javascript-block-level-variables/
 let gameScene = new Phaser.Scene('Game');
 
 //Game's configuration
@@ -85,6 +89,29 @@ gameScene.create = function() {
 
 gameScene.update = function() {
 
+	// Enemy movement
+	let enemies = this.enemiesgetChildren();
+	let numEnemies = enemies.length;
+	
+	for(let i = 0; i < numEnemies; i++) {
+	
+		//Move enemies
+		enemies[i].y += enemies[i].speed;
+		
+		//Reverse movement if reached the edges
+		if(enemies[i].y >= this.enemyMaxY && enemies[i].speed > 0) {
+		
+			enemies[i].speed *= -1;
+		} else if(enemies[i].y <= this.enemyMinY && enemies[i].speed < 0) {
+		
+			enemies[i].speed *= -1;
+			
+		}
+		
+		}
+	
+	}
+	
 	//Check for active input
 	if(this.input.activePointer.isDown) {
 		
